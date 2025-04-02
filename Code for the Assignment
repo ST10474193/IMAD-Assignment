@@ -1,0 +1,53 @@
+class MainActivity() : AppCompatActivity() {
+
+    @SuppressLint("MissingInflatedId")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+
+        }
+        //code starts here
+        //declaring the variables
+        val timeOfDay = findViewById<EditText>(timeOfDay)
+        val tvOutput = findViewById<TextView>(R.id.displaySuggestion)
+        val imageOutput = findViewById<ImageView>(R.id.mealImage)
+        val btnFindMeal = findViewById<Button>(R.id.findMealButton)
+        val btnReset = findViewById<Button>(R.id.resetButton)
+
+        //Reset button to clear user input and the meal suggestion
+        btnReset.setOnClickListener {
+            timeOfDay.text.clear()
+            tvOutput.text
+            timeOfDay.hint =
+                "Example- Breakfast, Mid-Morning, Afternoon, Mid-Afternoon, Dinner, Late Night"
+        }
+        //check if the user input matches with the times of day
+        btnFindMeal.setOnClickerlistener {
+            val timeDay = timeOfDay.text.toString().trim().lowercase()
+
+            val timedaylower = timeDay.lowercase() // converts to lowercase for insenstive matching
+
+            if (timedaylower == "Breakfast") {
+                tvOutput.text = "Breakfast Options: \ncereal \nEggs \nWaffels"
+
+            } else if (timedaylower == "Mid-Morning") {
+                tvOutput.text = "Mid-Morning Options: \nPie \nSandwhich \nFruit"
+
+            } else if (timedaylower == "Afternoon") {
+                tvOutput.text = "Afternoon Options: \nPizza \nBurger \nFish"
+
+            } else if (timedaylower == "Mid-Afternoon") {
+                tvOutput.text = "Mid-Afternoon Options : \nChoclate \nBiscuit \nCakes"
+
+            } else if (timedaylower == "Dinner") {
+                tvOutput.text = "Dinner Options: \nSteaks \nPasta \nCurry "
+
+                //code ends here
+            }
+        }
+    }
